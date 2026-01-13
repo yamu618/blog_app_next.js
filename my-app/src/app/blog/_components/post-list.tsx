@@ -1,6 +1,7 @@
 'use client'
 
 import { type Post } from '@/types/post'
+import Link from 'next/link'
 import { useState } from 'react'
 
 type Props = {
@@ -33,20 +34,25 @@ export default function PostList({ posts }: Props) {
           <li
             key={post.id}
             className="flex items-center justify-between rounded border border-gray-200 p-4 shadow-sm"
+          >
+            <div>
+              <Link
+                href={`/blog/${post.id}`}
+                className="text-lg font-semibold text-blue-600 hover:cursor-pointer hover:underline"
+              >
+                {post.title}
+              </Link>
+              <p className="text-sm text-gray-500">{post.date}</p>
+            </div>
+            <button
+              onClick={() => handleLike(post.id)}
+              className="ml-4 rounded bg-blue-500 px-3 py-1 text-white hover:bg-blue-600"
             >
-              <div>
-                <h2 className="text-lg font-semibold">{post.title}</h2>
-                <p className="text-sm text-gray-500">{post.date}</p>
-              </div>
-              <button
-                onClick={() => handleLike(post.id)}
-                className="ml-4 rounded bg-blue-500 px-3 py-1 text-white hover:bg-blue-600"
-                >
-                👍 {likes[post.id] || 0}
-              </button>
-              </li>
-        ))} 
+              👍 {likes[post.id] || 0}
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
-  )
+  );
 }

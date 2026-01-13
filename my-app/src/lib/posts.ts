@@ -22,3 +22,8 @@ export async function fetchPosts(): Promise<Post[]> {
     },
   ];
 }
+
+export async function getPostById(id: string): Promise<Post | undefined> {
+  const posts = await fetchPosts();
+  return posts.find((post) => post.id === id);
+}
